@@ -208,9 +208,13 @@ abstract class ThreadedLevelLightEngineMixin extends LevelLightEngine implements
      * @reason Destroy old chunk system hook
      * @author Spottedleaf
      */
-    @Overwrite
-    public void addTask(final int x, final int z, final ThreadedLevelLightEngine.TaskType type,
-                        final Runnable task) {
+    @Inject(
+            method = "addTask(IILnet/minecraft/server/level/ThreadedLevelLightEngine$TaskType;Ljava/lang/Runnable;)V",
+            at = @At(
+                    value = "HEAD"
+            )
+    )
+    public void addTask(int chunkX, int chunkZ, ThreadedLevelLightEngine.TaskType type, Runnable task, CallbackInfo ci) {
         throw new UnsupportedOperationException();
     }
 
@@ -218,9 +222,13 @@ abstract class ThreadedLevelLightEngineMixin extends LevelLightEngine implements
      * @reason Destroy old chunk system hook
      * @author Spottedleaf
      */
-    @Overwrite
-    public void addTask(final int x, final int z, final IntSupplier ticketLevelSupplier,
-                        final ThreadedLevelLightEngine.TaskType type, final Runnable task) {
+    @Inject(
+            method = "addTask(IILjava/util/function/IntSupplier;Lnet/minecraft/server/level/ThreadedLevelLightEngine$TaskType;Ljava/lang/Runnable;)V",
+            at = @At(
+                    value = "HEAD"
+            )
+    )
+    public void addTask(int chunkX, int chunkZ, IntSupplier queueLevelSupplier, ThreadedLevelLightEngine.TaskType type, Runnable task, CallbackInfo ci) {
         throw new UnsupportedOperationException();
     }
 
@@ -235,8 +243,13 @@ abstract class ThreadedLevelLightEngineMixin extends LevelLightEngine implements
      * @reason Destroy old chunk system hook
      * @author Spottedleaf
      */
-    @Overwrite
-    public void runUpdate() {
+    @Inject(
+            method = "runUpdate",
+            at = @At(
+                    value = "HEAD"
+            )
+    )
+    public void runUpdate(CallbackInfo ci) {
         throw new UnsupportedOperationException();
     }
 

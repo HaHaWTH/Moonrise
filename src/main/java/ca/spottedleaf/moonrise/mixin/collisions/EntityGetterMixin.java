@@ -5,6 +5,7 @@ import ca.spottedleaf.moonrise.patches.collisions.CollisionUtil;
 import ca.spottedleaf.moonrise.patches.chunk_system.entity.ChunkSystemEntity;
 import ca.spottedleaf.moonrise.patches.collisions.shape.CollisionVoxelShape;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.level.EntityGetter;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-@Mixin(EntityGetter.class)
+@Mixin(value = EntityGetter.class, priority = 999)
 interface EntityGetterMixin {
 
     @Shadow
@@ -37,6 +38,7 @@ interface EntityGetterMixin {
             // reduce indirection by always returning type with same class
             return new ArrayList<>();
         }
+        Predicate<Entity> noSpectators = EntitySelector.NO_SPECTATORS;
 
         // to comply with vanilla intersection rules, expand by -epsilon so that we only get stuff we definitely collide with.
         // Vanilla for hard collisions has this backwards, and they expand by +epsilon but this causes terrible problems
@@ -55,7 +57,7 @@ interface EntityGetterMixin {
         for (int i = 0, len = entities.size(); i < len; ++i) {
             final Entity otherEntity = entities.get(i);
 
-            if (otherEntity.isSpectator()) {
+            if (!noSpectators.test(otherEntity)) {
                 continue;
             }
 
