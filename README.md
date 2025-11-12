@@ -1,4 +1,4 @@
-Moonrise
+Moonrise - Compatibility fork
 ==
 [![Modrinth](https://img.shields.io/badge/Modrinth-gray?logo=modrinth)](https://modrinth.com/mod/moonrise-opt)
 [![CurseForge](https://img.shields.io/badge/CurseForge-gray?logo=curseforge)](https://www.curseforge.com/minecraft/mc-mods/moonrise)
@@ -7,6 +7,11 @@ Moonrise
 
 Fabric/NeoForge mod for optimising performance of the integrated (singleplayer/LAN) and dedicated server.
 
+## Fixed compatibility issues
+- Carpet compatibility
+- Carpet TIS Addition compatibility (Not a clean fix, Carpet TIS' light update logger is broken.)
+- Architectury API compatibility
+- Distant Horizons compatibility
 
 ## Purpose
 Moonrise aims to optimise the game *without changing Vanilla behavior*. If you find that there are changes to Vanilla behavior,
